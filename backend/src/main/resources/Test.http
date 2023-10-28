@@ -1,0 +1,16 @@
+GET http://localhost:8080/api/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWRAZ21haWwuY29tIiwiaWF0IjoxNjk2NTkyODcyLCJleHAiOjE2OTY1OTQzMTJ9.r-K0NYLs53njn9x1gVaIUFJBawILwod9m21o3OvUZUA
+Accept: application/json
+
+###
+POST http://localhost:8080/api/appusers/register
+Content-Type: application/json
+
+{
+  "user_name": "test",
+  "password": "test"
+}
+
+###
+
+
