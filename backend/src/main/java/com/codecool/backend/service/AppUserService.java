@@ -1,22 +1,42 @@
 package com.codecool.backend.service;
 
+import com.codecool.backend.configuration.JwtService;
 import com.codecool.backend.dto.AppUserDto;
 import com.codecool.backend.mapper.AppUserMapper;
 import com.codecool.backend.model.AppUser;
+import com.codecool.backend.model.AuthenticationResponse;
+import com.codecool.backend.model.Role;
 import com.codecool.backend.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
-public class AppUserService {
+public class AppUserService{
 
     private final AppUserRepository appUserRepository;
 
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtService jwtService;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final AppUserDetailsService appUserDetailsService;
     private final AppUserMapper appUserMapper;
 
     @Autowired
-    public AppUserService(AppUserRepository appUserRepository, AppUserMapper appUserMapper) {
+    public AppUserService(AppUserRepository appUserRepository, AuthenticationManager authenticationManager, JwtService jwtService, PasswordEncoder passwordEncoder, AppUserDetailsService appUserDetailsService, AppUserMapper appUserMapper) {
         this.appUserRepository = appUserRepository;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
+        this.passwordEncoder = passwordEncoder;
+        this.appUserDetailsService = appUserDetailsService;
         this.appUserMapper = appUserMapper;
     }
 
