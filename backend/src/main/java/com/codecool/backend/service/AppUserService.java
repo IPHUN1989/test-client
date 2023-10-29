@@ -27,4 +27,19 @@ public class AppUserService {
     }
 
 
+    public AuthenticationResponse authenticate(AppUserDto appUserDto){
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        appUserDto.userName(),
+                        appUserDto.password()
+                )
+        );
+        UserDetails user = appUserDetailsService.loadUserByUsername(appUserDto.userName());
+        AppUser foundUser = appUserRepository.findAppUserByUserName(appUserDto.userName())
+                .orElseThrow(NoSuchElementException::new);
+        var jwtToken = jwtService.generateToken(user, foundUser.getUserName());
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
 }
