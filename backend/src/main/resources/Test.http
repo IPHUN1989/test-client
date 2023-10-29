@@ -16,7 +16,7 @@ POST http://localhost:8080/api/appusers/register
 Content-Type: application/json
 
 {
-  "user_name": "test",
+  "userName": "test",
   "password": "test"
 }
 
