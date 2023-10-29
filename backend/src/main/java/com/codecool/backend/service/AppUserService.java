@@ -22,7 +22,10 @@ public class AppUserService {
 
     public AppUserDto register(AppUserDto userDto) {
         AppUser user = appUserMapper.toEntity(userDto);
+        user.setRole(Role.USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         appUserRepository.save(user);
+        user.setPassword("");
         return appUserMapper.toDto(user);
     }
 
