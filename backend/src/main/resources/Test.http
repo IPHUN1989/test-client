@@ -1,5 +1,14 @@
+POST http://localhost:8080/api/appusers/login
+Content-Type: application/json
+
+{
+  "userName": "test",
+  "password": "test"
+}
+
+###
 GET http://localhost:8080/api/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWRAZ21haWwuY29tIiwiaWF0IjoxNjk2NTkyODcyLCJleHAiOjE2OTY1OTQzMTJ9.r-K0NYLs53njn9x1gVaIUFJBawILwod9m21o3OvUZUA
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJVU0VSIn1dLCJ1c2VyX25hbWUiOiJ0ZXN0Iiwic3ViIjoidGVzdCIsImlhdCI6MTY5ODU3MjE4MCwiZXhwIjoxNjk4NjU4NTgwfQ.O0OudJZEu9gQgJ73X7AtoyKNbsvhV2d2Urvv60Cc8ZQ
 Accept: application/json
 
 ###
@@ -7,7 +16,7 @@ POST http://localhost:8080/api/appusers/register
 Content-Type: application/json
 
 {
-  "user_name": "test",
+  "userName": "test",
   "password": "test"
 }
 
