@@ -1,6 +1,6 @@
-import "./App.css";
+import "./homePage.css";
 
-function App() {
+function HomePage() {
   return (
     <>
       <div>Welcome to the front page</div>
@@ -8,4 +8,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;
