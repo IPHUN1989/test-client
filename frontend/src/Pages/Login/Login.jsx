@@ -44,9 +44,9 @@ const Login = () => {
             loginUser(user)
             .then((response) => {
                     navigate("/");
-                    localStorage.setItem("userRoles", extractUser(response.token).role)
+                    localStorage.setItem("userRoles", extractUser(response.token).authority)
                     localStorage.setItem("userToken", response.token);
-                    localStorage.setItem("username", extractUser(response.token).user_name);
+                    localStorage.setItem("username", extractUser(response.token).name);
             })
             .catch((error) => {
                 console.error("Error login user: ", error);
@@ -86,7 +86,7 @@ const Login = () => {
                             <input 
                             placeholder="User Name"
                             type="text" 
-                            name="text" 
+                            name="userName" 
                             id="userName" />
                         </div>
                         <div className="input-box">
