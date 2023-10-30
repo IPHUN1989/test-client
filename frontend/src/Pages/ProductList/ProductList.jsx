@@ -95,15 +95,22 @@ export default function ProductList() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filters, setFilters] = useState({
+    name: "",
+    articleNumber: "",
+    vat: "",
+    netPrice: "",
+  });
 
   const productsFetch = async () => {
     try {
       const userToken = localStorage.getItem("userToken");
       const headers = {
-            "Authorization": `Bearer ${userToken}`,
-            "Content-Type": "application/json",
-          }
-          
+        Authorization: `Bearer ${userToken}`,
+        "Content-Type": "application/json",
+      };
+
       const response = await fetch("/api/products", {
         method: "GET",
         headers: headers,
@@ -112,6 +119,7 @@ export default function ProductList() {
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
+        setFilteredProducts(data);
       } else {
         console.error(`Error fetching products: ${response.statusText}`);
       }
@@ -133,7 +141,7 @@ export default function ProductList() {
     };
   }
 
-  const rows = products.map((product) => {
+  const rows = filteredProducts.map((product) => {
     return createData(
       product.articleNumber,
       product.name,
@@ -145,7 +153,7 @@ export default function ProductList() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
@@ -153,6 +161,45 @@ export default function ProductList() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const applyFilters = () => {
+    let filteredProducts = products;
+
+    if (filters.name) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(filters.name.toLowerCase())
+      );
+    }
+
+    if (filters.articleNumber) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.articleNumber.includes(filters.articleNumber)
+      );
+    }
+
+    if (filters.vat) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.vat.toFixed(2).includes(filters.vat)
+      );
+    }
+
+    if (filters.netPrice) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.netPrice.toFixed(2).includes(filters.netPrice)
+      );
+    }
+
+    setFilteredProducts(filteredProducts);
+  };
+
+  useEffect(() => {
+    applyFilters();
+  }, [filters]);
+
+  const handleFilterChange = (filterName, filterValue) => {
+    setFilters({ ...filters, [filterName]: filterValue });
+  };
+
 
   const startIndex = page * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
@@ -173,16 +220,36 @@ export default function ProductList() {
               {search ? (
                 <TableRow>
                   <TableCell>
-                    <TextField label="ArticleNumber" />
+                    <TextField
+                      label="ArticleNumber"
+                      onChange={(e) =>
+                        handleFilterChange("articleNumber", e.target.value)
+                      }                      placeholder="Search for an article number"
+                    />
                   </TableCell>
                   <TableCell>
-                    <TextField label="Product Name" />
+                    <TextField
+                      label="Product Name"
+                      onChange={(e) =>
+                        handleFilterChange("name", e.target.value)
+                      }                      placeholder="Search for a name"
+                    />
                   </TableCell>
                   <TableCell>
-                    <TextField label="VAT" />
+                    <TextField
+                      label="VAT"
+                      onChange={(e) => handleFilterChange("vat", e.target.value)}
+                      placeholder="Search for a VAT"
+                    />
                   </TableCell>
                   <TableCell>
-                    <TextField label="Net Price" />
+                    <TextField
+                      label="Net Price"
+                      onChange={(e) =>
+                        handleFilterChange("netPrice", e.target.value)
+                      }
+                      placeholder="Search for a net price"
+                    />
                   </TableCell>
                 </TableRow>
               ) : (
@@ -208,7 +275,7 @@ export default function ProductList() {
               {displayedRows.map((row) => (
                 <TableRow key={row.articleNumber}>
                   <TableCell component="th" scope="row" style={{ width: 160 }}>
-                      {row.name}
+                    {row.articleNumber}
                   </TableCell>
                   <TableCell
                     component="th"
