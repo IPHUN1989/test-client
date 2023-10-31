@@ -95,18 +95,8 @@ java -jar -Dspring.datasource.url=jdbc:postgresql://localhost:5432/${database} -
 
 ##  Running with Docker
 
-- Create a .env file in the ${local_folder_of_cloned_project}
-- Fill out the followings and copy them into the .env file
-```env
-
-SQL_PORT=${your sql port}
-DATABASE=${your database name}
-LOG_FOLDER=${your log folder path}
-SECRET_KEY=${your secret key}
-```
-
 ```bash
 # Navigate to the local folder
 docker-compose up
 ```
-- Visit the dockerized website on localhost:3456
+- Visit the dockerized website on localhost:5173
