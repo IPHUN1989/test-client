@@ -242,10 +242,9 @@ export default function ProductList() {
       )}
       <Box
         sx={{
-          height: 400,
+          height: '100%',
           width: "100%",
           boxShadow: 2,
-          border: 2,
           borderColor: "primary.light",
           "& .MuiDataGrid-cell:hover": {
             color: "primary.main",
