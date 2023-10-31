@@ -85,7 +85,7 @@ docker-compose up
 
 # Usage
 
-- **The database is initialized with 50 prodcuts but no users**
+- **The database is initialized with 50 products but no users**
 - **User cannot access the database without first login**
 - **First create a user and login afterwards**
 - **With the received JWT token the user can browse the products**
