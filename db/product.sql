@@ -1,3 +1,4 @@
+INSERT INTO public.app_user (id, password, user_name, role) VALUES (1, '$2a$10$e3o5KyNlwACkAZfKdPHh5emkxYq/2D8Mq9NciPtG2.QY5x.XMmLOW', 'test', 'USER');
 INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (1, '123', 'Table', 27.00, 70.00);
 INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (2, '124', 'Car', 27.00, 1000.00);
 INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (3, '125', 'Chair', 20.00, 100.00);
