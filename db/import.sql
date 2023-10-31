@@ -1,4 +1,35 @@
-INSERT INTO public.app_user (id, password, user_name, role) VALUES (1, '$2a$10$e3o5KyNlwACkAZfKdPHh5emkxYq/2D8Mq9NciPtG2.QY5x.XMmLOW', 'test', 'USER');
+CREATE SEQUENCE IF NOT EXISTS app_user_seq START WITH 1 INCREMENT BY 50;
+
+CREATE SEQUENCE IF NOT EXISTS product_seq START WITH 1 INCREMENT BY 50;
+
+CREATE TABLE app_user
+(
+    id        BIGINT       NOT NULL,
+    user_name VARCHAR(255) NOT NULL,
+    password  VARCHAR(255) NOT NULL,
+    role      VARCHAR(255) NOT NULL,
+    CONSTRAINT pk_app_user PRIMARY KEY (id)
+);
+
+CREATE TABLE product
+(
+    id             BIGINT         NOT NULL,
+    vat            DECIMAL        NOT NULL,
+    net_price      DECIMAL(19, 2) NOT NULL,
+    article_number VARCHAR(255)   NOT NULL,
+    name           VARCHAR(255)   NOT NULL,
+    CONSTRAINT pk_product PRIMARY KEY (id)
+);
+
+ALTER TABLE app_user
+    ADD CONSTRAINT uc_app_user_user_name UNIQUE (user_name);
+
+ALTER TABLE product
+    ADD CONSTRAINT uc_product_article_number UNIQUE (article_number);
+--
+-- TOC entry 2974 (class 0 OID 18575)
+-- Dependencies: 202
+-- Data for Name: product
 INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (1, '123', 'Table', 27.00, 70.00);
 INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (2, '124', 'Car', 27.00, 1000.00);
 INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (3, '125', 'Chair', 20.00, 100.00);
@@ -49,3 +80,6 @@ INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (47
 INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (48, '800754754', 'Cat4', 30.00, 78.00);
 INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (49, '8392164643', 'Dog4', 0.00, 78.00);
 INSERT INTO public.product (id, article_number, name, vat, net_price) VALUES (50, '94217643643', 'Laptop5', 70.00, 8000.00);
+
+
+
