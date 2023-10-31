@@ -4,7 +4,8 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, gridFilteredSortedRowIdsSelector,
+  selectedGridRowsSelector } from "@mui/x-data-grid";
 import {
   Button,
   TextField,
@@ -33,6 +34,8 @@ function TablePaginationActions(props) {
   const handleLastPageButtonClick = (event) => {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
+
+  
 
   return (
     <Box sx={{ flexShrink: 0, ml: 2.5 }}>
@@ -83,10 +86,6 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-let USDollar = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-});
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -166,6 +165,15 @@ export default function ProductList() {
     setFilters({ ...filters, [filterName]: filterValue });
   };
 
+  const getSelectedRowsToExport = ({ apiRef }) => {
+    const selectedRowIds = selectedGridRowsSelector(apiRef);
+    if (selectedRowIds.size > 0) {
+      return Array.from(selectedRowIds.keys());
+    }
+  
+    return gridFilteredSortedRowIdsSelector(apiRef);
+  };
+
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     { field: "articleNumber", headerName: "Article Number", width: 150 },
@@ -177,14 +185,14 @@ export default function ProductList() {
     },
     {
       field: "vat",
-      headerName: "VAT",
+      headerName: "VAT in %",
       type: "number",
       width: 150,
       editable: true,
     },
     {
       field: "netPrice",
-      headerName: "Net Price",
+      headerName: "Net Price in USD$",
       headerClassName: "super-app-theme--header",
       type: "number",
       width: 150,
@@ -196,8 +204,8 @@ export default function ProductList() {
     id: index + 1,
     articleNumber: product.articleNumber,
     name: product.name,
-    vat: product.vat + "%",
-    netPrice: USDollar.format(product.netPrice),
+    vat: product.vat,
+    netPrice: product.netPrice
   }));
 
   return (
@@ -229,7 +237,7 @@ export default function ProductList() {
         </div>
       ) : (
         <Button onClick={() => setSearch(true)} variant="text" style={{background: "white"}}>
-          Multiple value filtering{" "}
+          Multiple value filtering
         </Button>
       )}
       <Box
@@ -264,6 +272,9 @@ export default function ProductList() {
             checkboxSelection
             disableRowSelectionOnClick
             slots={{ toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: { printOptions: { getRowsToExport: getSelectedRowsToExport } },
+            }}
           />
         </Paper>
       </Box>
