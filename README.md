@@ -59,8 +59,6 @@ npm run dev
 
 ## Backend
 
-### Without an IDE
-
 - **Create a database called product for testing the application**
 - **Use import.sql located in the db folder to populate the database**
 - **Run the following command lines**
