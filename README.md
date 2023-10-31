@@ -1,5 +1,3 @@
-![Project Logo](https://raw.githubusercontent.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn/development/frontend/src/assets/wallpaper/Byte_Battlers.png)
-
 ![GitHub repo size](https://img.shields.io/github/repo-size/IPHUN1989/test-client)
 ![GitHub language count](https://img.shields.io/github/languages/count/IPHUN1989/test-client)
 ![Static Badge](https://img.shields.io/badge/total%20number%20of%20tracked%20files-90-blue)
@@ -14,14 +12,14 @@
 
 
 
-# ByteBattlers
+# Test Client
 **A simple full stack web application with the following technologies:**
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/frameworks/react.svg" alt="drawing" width="30" align="center"/> *React* 
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/programming%20languages/javascript.svg" alt="drawing" width="30" align="center"/> *JavaScript*
 -  <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/frameworks/spring.svg" alt="drawing" width="30" align="center"/> *Spring*
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/programming%20languages/java.svg" alt="drawing" width="30" align="center"/> *Java* 
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/databases/postgresql.svg" alt="drawing" width="30" align="center"/> *PostgreSQL*
-- - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/cloud/docker.svg" alt="drawing" width="30" align="center"/> *Docker*
+- <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/cloud/docker.svg" alt="drawing" width="30" align="center"/> *Docker*
 
 # Background
 **A simple web application where:**
