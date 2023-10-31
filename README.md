@@ -70,9 +70,6 @@ npm run dev
 ### Option 1: Without an IDE
 
 - **Create a database called product for testing the application**
-- **Navigate to {local_folder_of_cloned_project/backend/src/resources/db/migration}**
-- **Open "init-schema.sql" and copy the query**
-- **Open the created test database with a query tool and run the copied query to initialzie the database**
 - **Run the following command lines**
 
 ```bash
@@ -83,7 +80,7 @@ cd {local_folder_of_cloned_project/backend}
 mvn clean install
 
 # Run the applicaiton
-java -jar -Dspring.datasource.url=jdbc:postgresql://localhost:5432/${database} -Dlogging.file.path=${log_folder_path} -Dspring.datasource.password=${password} -Dapplication.secret=${secret_key} -Dapplication.username=${username} backend-0.0.1-SNAPSHOT.jar
+java -jar -Dspring.datasource.url=jdbc:postgresql://${SQL_SERVER}{SQL_PORT}/${DATABASE} -Dspring.datasource.password=${PASSWORD} -Dapplication.secret=${SECRET_KEY} -Dapplication.username=${USERNAME} backend-0.0.1-SNAPSHOT.jar
 ```
 
 ### Option 2: With an IDE
