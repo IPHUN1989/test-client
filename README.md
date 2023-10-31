@@ -39,7 +39,7 @@
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/databases/postgresql.svg" alt="drawing" width="30" align="center"/> *PostgreSQL 12.16*
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/others/git.svg" alt="drawing" width="30" align="center"/> *Git 2.30.2*
 
-# Usage
+# Installation
 
 ## Frontend 
 
@@ -62,6 +62,7 @@ npm run dev
 ### Without an IDE
 
 - **Create a database called product for testing the application**
+- **Use import.sql located in the db folder to populate the database**
 - **Run the following command lines**
 
 ```bash
@@ -82,3 +83,17 @@ java -jar -Dspring.datasource.url=jdbc:postgresql://<YOUR_SQL_SERVER><YOUR_SQL_P
 docker-compose up
 ```
 - Visit the dockerized website on localhost:5173
+
+
+# Usage
+
+- **The database is initialized with 50 prodcuts but no users**
+- **User cannot access the database without first login**
+- **First create a user and login afterwards**
+- **With the received JWT token the user can browse the products**
+- **User can use single filtering options located at the left upper corner of the table**
+- **User can use multiple filtering options at the same time located above the table**
+- **User can sort by each column**
+- **User can export rows of data by selecting them one by one or by selecting all results**
+- **Saved results keep their sorting order**
+- **It is possible to save resulsts to both pdf and csv file formats** 
