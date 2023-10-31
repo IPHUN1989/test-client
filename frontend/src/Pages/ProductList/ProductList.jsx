@@ -4,19 +4,12 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import {
   Button,
   TextField,
   useTheme,
-  TableBody,
-  Table,
   Box,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableFooter,
-  TablePagination,
-  TableRow,
   Paper,
   IconButton,
 } from "@mui/material";
@@ -90,9 +83,12 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
+let USDollar = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 export default function ProductList() {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -102,7 +98,7 @@ export default function ProductList() {
     vat: "",
     netPrice: "",
   });
-
+  
   const productsFetch = async () => {
     try {
       const userToken = localStorage.getItem("userToken");
@@ -131,36 +127,6 @@ export default function ProductList() {
   useEffect(() => {
     productsFetch();
   }, []);
-
-  function createData(articleNumber, name, vat, netPrice) {
-    return {
-      articleNumber,
-      name,
-      vat,
-      netPrice,
-    };
-  }
-
-  const rows = filteredProducts.map((product) => {
-    return createData(
-      product.articleNumber,
-      product.name,
-      product.vat,
-      product.netPrice
-    );
-  });
-
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  const handleChangePage = (newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   const applyFilters = () => {
     let filteredProducts = products;
@@ -200,132 +166,107 @@ export default function ProductList() {
     setFilters({ ...filters, [filterName]: filterValue });
   };
 
+  const columns = [
+    { field: "id", headerName: "ID", width: 90 },
+    { field: "articleNumber", headerName: "Article Number", width: 150 },
+    {
+      field: "name",
+      headerName: "Product name",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "vat",
+      headerName: "VAT",
+      type: "number",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "netPrice",
+      headerName: "Net Price",
+      headerClassName: "super-app-theme--header",
+      type: "number",
+      width: 150,
+      editable: true,
+    }
+  ];
 
-  const startIndex = page * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
-  const displayedRows = rows.slice(startIndex, endIndex);
+  const rows = filteredProducts.map((product, index) => ({
+    id: index + 1,
+    articleNumber: product.articleNumber,
+    name: product.name,
+    vat: product.vat + "%",
+    netPrice: USDollar.format(product.netPrice),
+  }));
 
   return (
     <>
-      <div>
-        <br />
-        <br />
-        <TableContainer
-          component={Paper}
-          sx={{ maxWidth: 1200, margin: "auto", opacity: 0.9 }}
-          align="center"
-        >
-          <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-            <TableHead>
-              {search ? (
-                <TableRow>
-                  <TableCell>
-                    <TextField
-                      label="ArticleNumber"
-                      onChange={(e) =>
-                        handleFilterChange("articleNumber", e.target.value)
-                      }                      placeholder="Search for an article number"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <TextField
-                      label="Product Name"
-                      onChange={(e) =>
-                        handleFilterChange("name", e.target.value)
-                      }                      placeholder="Search for a name"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <TextField
-                      label="VAT"
-                      onChange={(e) => handleFilterChange("vat", e.target.value)}
-                      placeholder="Search for a VAT"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <TextField
-                      label="Net Price"
-                      onChange={(e) =>
-                        handleFilterChange("netPrice", e.target.value)
-                      }
-                      placeholder="Search for a net price"
-                    />
-                  </TableCell>
-                </TableRow>
-              ) : (
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell align="center">
-                    <Button onClick={() => setSearch(true)} variant="text">
-                      Advanced search
-                    </Button>
-                  </TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              )}
-              <TableRow>
-                <TableCell align="center">Article Number</TableCell>
-                <TableCell align="center">Product Name</TableCell>
-                <TableCell align="center">VAT</TableCell>
-                <TableCell align="center">Net Price</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {displayedRows.map((row) => (
-                <TableRow key={row.articleNumber}>
-                  <TableCell component="th" scope="row" style={{ width: 160 }}>
-                    {row.articleNumber}
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    align="center"
-                    scope="row"
-                    style={{ width: 50 }}
-                  >
-                    {row.name}
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    align="center"
-                    scope="row"
-                    style={{ width: 50 }}
-                  >
-                    {row.vat}
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    align="center"
-                    scope="row"
-                    style={{ width: 150 }}
-                  >
-                    {row.netPrice}
-                  </TableCell>
-                </TableRow>
-              ))}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={4} />
-                </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                  colSpan={4}
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
-      </div>
+      {search ? (
+        <div style={{ background: "white" }}>
+          <TextField
+            label="ArticleNumber"
+            onChange={(e) =>
+              handleFilterChange("articleNumber", e.target.value)
+            }
+            placeholder="Search for an article number"
+          />
+          <TextField
+            label="Product Name"
+            onChange={(e) => handleFilterChange("name", e.target.value)}
+            placeholder="Search for a name"
+          />
+          <TextField
+            label="VAT"
+            onChange={(e) => handleFilterChange("vat", e.target.value)}
+            placeholder="Search for a VAT"
+          />
+          <TextField
+            label="Net Price"
+            onChange={(e) => handleFilterChange("netPrice", e.target.value)}
+            placeholder="Search for a net price"
+          />
+        </div>
+      ) : (
+        <Button onClick={() => setSearch(true)} variant="text" style={{background: "white"}}>
+          Multiple value filtering{" "}
+        </Button>
+      )}
+      <Box
+        sx={{
+          height: 400,
+          width: "100%",
+          boxShadow: 2,
+          border: 2,
+          borderColor: "primary.light",
+          "& .MuiDataGrid-cell:hover": {
+            color: "primary.main",
+            height: 300,
+            width: "100%",
+            "& .super-app-theme--header": {
+              backgroundColor: "rgba(255, 7, 0, 0.55)",
+            },
+          },
+        }}
+      >
+        <Paper sx={{ bgcolor: "white" }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+            pageSizeOptions={[5, 10, 15, 20, 25]}
+            checkboxSelection
+            disableRowSelectionOnClick
+            slots={{ toolbar: GridToolbar }}
+          />
+        </Paper>
+      </Box>
     </>
   );
 }
