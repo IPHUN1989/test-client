@@ -41,14 +41,6 @@
 
 # Usage
 
-**Clone with the following command line:**
-
-```bash
-# Clone this repository
-git clone https://github.com/IPHUN1989/test-client.git
-
-```
-
 ## Frontend 
 
 ```bash
@@ -67,7 +59,7 @@ npm run dev
 
 ## Backend
 
-### Option 1: Without an IDE
+### Without an IDE
 
 - **Create a database called product for testing the application**
 - **Run the following command lines**
@@ -80,15 +72,8 @@ cd {local_folder_of_cloned_project/backend}
 mvn clean install
 
 # Run the applicaiton
-java -jar -Dspring.datasource.url=jdbc:postgresql://${SQL_SERVER}{SQL_PORT}/${DATABASE} -Dspring.datasource.password=${PASSWORD} -Dapplication.secret=${SECRET_KEY} -Dapplication.username=${USERNAME} backend-0.0.1-SNAPSHOT.jar
+java -jar -Dspring.datasource.url=jdbc:postgresql://<YOUR_SQL_SERVER><YOUR_SQL_PORT>/<YOUR_DATABASE> -Dspring.datasource.password=<YOUR_DB_PASSWORD> -Dapplication.secret=<YOUR_SECRET_KEY> -Dapplication.username=<YOUR_DB_USERNAME> ./target/backend-0.0.1-SNAPSHOT.jar
 ```
-
-### Option 2: With an IDE
-
-- **Change the required local enviromental variables values to your system settings (e.g. "DATABASE", "PASSWORD", "SECRET_KEY", "SQL_PORT", "SQL_SERVER", "USERNAME")**
-- **Run the BackendApplication**
-- **Open the created test database for products and import the database from {local_folder_of_cloned_project/db/product.sql}**
-
 
 ##  Running with Docker
 
