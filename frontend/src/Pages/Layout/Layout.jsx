@@ -25,9 +25,9 @@ const Layout = () => {
           <Button className="grow">
             <Link to="/">Home</Link>
           </Button>
-          <li className="grow">
+          <Button className="grow">
             <Link to="/products">All products</Link>
-          </li>
+          </Button>
           <div className="center">
             {username ? (
               <Accordion sx={{ width: "220px" }}>
@@ -52,7 +52,7 @@ const Layout = () => {
                   </Button>
                 </AccordionDetails>
               </Accordion>
-            ) : null}
+            ) : <></>}
           </div>
         </ul>
       </nav>
