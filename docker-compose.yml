@@ -1,0 +1,34 @@
+version: '3.3' 
+
+services:
+  my-frontend:
+    build:
+      context: ./frontend
+    container_name: vite
+    depends_on:
+      - my-java
+    ports:
+      - "5173:80"
+
+  my-java:
+    build: 
+      context: ./backend
+    container_name: my-java
+    depends_on:
+      - postgres  
+    environment:
+      - SQL_SERVER=postgres
+      - DATABASE=test
+      - SECRET_KEY=dea8a6504d889e115a68e134ad2b079a88297056d6bf5833d972d0dc1697151f
+      - SQL_PORT=5432
+      - USERNAME=postgres
+      - PASSWORD=postgres
+  
+  postgres:
+    build:
+      context: ./db
+    container_name: postgres
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres

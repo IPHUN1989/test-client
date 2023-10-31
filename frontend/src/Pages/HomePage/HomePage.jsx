@@ -8,11 +8,13 @@ function HomePage() {
 
   return (
     <>
-      <div>Welcome to the front page</div>
-      {!localStorage.getItem("user_name") ?
+      {!localStorage.getItem("username") ?
       <div className="card">
-        <Button onClick={() => navigate("/login")}>
+        <Button id="login" style={{background: "white"}} onClick={() => navigate("/login")}>
           Login
+        </Button>
+        <Button id="reg" style={{background: "white"}} onClick={() => navigate("/register")}>
+          Register
         </Button>
         </div>
       : <></>

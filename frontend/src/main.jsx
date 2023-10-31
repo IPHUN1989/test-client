@@ -6,6 +6,7 @@ import HomePage from './Pages/HomePage/HomePage.jsx'
 import Login from './Pages/Login/Login';
 import Layout from './Pages/Layout/Layout';
 import ProductList from './Pages/ProductList/ProductList';
+import UserCreator from './Pages/Register/UserCreator';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <ProductList />,
+      },
+      {
+        path: "/register",
+        element: <UserCreator />,
       }
     ],
   },
