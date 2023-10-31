@@ -10,10 +10,10 @@ function HomePage() {
     <>
       {!localStorage.getItem("username") ?
       <div className="card">
-        <Button id="login" style={{background: "white"}} onClick={() => navigate("/login")}>
+        <Button id="log" style={{background: "white"}} onClick={() => navigate("/login")}>
           Login
         </Button>
-        <Button id="reg" style={{background: "white"}} onClick={() => navigate("/register")}>
+        <Button id="registration" style={{background: "white"}} onClick={() => navigate("/register")}>
           Register
         </Button>
         </div>

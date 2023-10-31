@@ -107,7 +107,7 @@ const Login = () => {
                         </button>
                         <br></br>
                         <br></br>
-                        <button id="login" type="button" onClick={() => navigate("/")}>
+                        <button id="cancel" type="button" onClick={() => navigate("/")}>
                             Cancel
                         </button>
 
